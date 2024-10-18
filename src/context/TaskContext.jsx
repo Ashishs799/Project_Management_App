@@ -11,6 +11,7 @@ export const TaskContextProvider = ({ children }) => {
     setShowForm(true);
   };
   const setProjectName = (value) => {
+    localStorage.setItem("p_name", value);
     setName(value);
   };
   const hideFormHandler = () => {
@@ -36,11 +37,24 @@ export const TaskContextProvider = ({ children }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [hideFormHandler]);
+
   useEffect(() => {
-    setTimeout(() => {
-      showProjectNameFormHandler();
-    }, 2000);
-  }, []);
+    // Check if the form has been shown before
+    const isFormShown = localStorage.getItem("isFormShown");
+    const pname = localStorage.getItem("p_name");
+    console.log("YO NAM", name);
+
+    // Show the form if it hasn't been shown yet
+    if ((!isFormShown && name === "Project") || name === "" || !pname) {
+      setTimeout(() => {
+        showProjectNameFormHandler(); // Show the form
+      }, 2000);
+
+      // Set a flag in localStorage to indicate the form has been shown
+      localStorage.setItem("isFormShown", true);
+    }
+  }, [name]);
+
   const value = {
     showForm,
     setShowForm,
@@ -51,6 +65,7 @@ export const TaskContextProvider = ({ children }) => {
     showProjectNameForm,
     formRef,
     setProjectName,
+    setName,
     name,
   };
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;

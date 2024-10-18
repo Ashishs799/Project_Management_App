@@ -49,7 +49,11 @@ const Project_name_form = () => {
               onChange={(e) => setProjectNameInput(e.target.value)}
             />
 
-            <Button label={"Create project"} onClick={handleCreateProject} />
+            <Button
+              label={"Create project"}
+              onClick={handleCreateProject}
+              type={"button"}
+            />
           </form>
         </div>
       </div>
