@@ -1,0 +1,10 @@
+.header {
+  width: 100%;
+  padding: 20px 0;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.header .proj_name {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

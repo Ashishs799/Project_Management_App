@@ -1,0 +1,25 @@
+.folded-card {
+  position: relative;
+  margin: 15px 0;
+  width: 300px;
+  height: 150px;
+  background-color: #d35858;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);
+}
+
+.folded-card::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 4px;
+  transform: rotate(198deg);
+  /* transform: rotate3d(0, -1, -1, -0.2turn); */
+  width: 50px;
+  height: 50px;
+  background-color: #b93b3b; /* Fold color */
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+}
