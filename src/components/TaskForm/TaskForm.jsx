@@ -14,6 +14,12 @@ const TaskForm = () => {
     tags: "",
   });
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTaskDetails((prevDetails) => ({
@@ -24,7 +30,12 @@ const TaskForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setTasks((prevTasks) => [...prevTasks, taskDetails]);
+    console.log("Task details before adding to tasks:", taskDetails);
+    setTasks((prevTasks) => {
+      const updatedTasks = [...prevTasks, taskDetails];
+      // console.log("Updated tasks array:", updatedTasks);
+      return updatedTasks;
+    });
 
     setTaskDetails({
       task: "",
@@ -34,12 +45,15 @@ const TaskForm = () => {
       tags: "",
     });
 
-    hideFormHandler();
+    setTimeout(() => {
+      hideFormHandler();
+    }, 0);
   };
 
   useEffect(() => {
     if (tasks.length > 0) {
       console.log("Tasks array updated:", tasks);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
     } else {
       console.log("Array is empty");
     }
@@ -49,7 +63,7 @@ const TaskForm = () => {
   return (
     <div>
       <div ref={formRef} className="task-form">
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} action="">
           <label htmlFor="task">Task</label>
           <textarea
             id="task"

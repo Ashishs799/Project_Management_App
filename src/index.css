@@ -23,6 +23,11 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.flex_around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
 .flex_column {
   display: flex;
@@ -31,7 +36,6 @@ body {
   align-items: center;
 }
 
-
-.m-0-60{
+.m-0-60 {
   margin: 0 60px;
 }
