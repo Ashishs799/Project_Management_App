@@ -1,6 +1,8 @@
 .columns {
   width: 100%;
   height: 40px;
+  /* padding: 10px 0;
+  background: teal; */
 }
 
 /* .columns span{

@@ -1,9 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import "./Rowcontent.css";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { SlCalender } from "react-icons/sl";
+import { IoIosMove } from "react-icons/io";
+import { LiaEdit } from "react-icons/lia";
+import { MdOutlineDelete } from "react-icons/md";
 
-const Rowcontent = ({ tasks }) => {
+const Rowcontent = ({ tasks, onMove, parentTasks }) => {
+  const [dropdownVisible, setDropdownVisible] = useState(null);
+
+  const handleMove = (taskIndex, newStatus) => {
+    const globalIndex = parentTasks.findIndex(
+      (task) => task.task === tasks[taskIndex].task
+    );
+    onMove(globalIndex, newStatus);
+    setDropdownVisible(null);
+  };
+
   const getPriorityClass = (priority) => {
     switch (priority.toLowerCase()) {
       case "low":
@@ -23,15 +36,15 @@ const Rowcontent = ({ tasks }) => {
     <div className="row-container">
       {tasks && tasks.length > 0
         ? tasks.map((task, index) => {
-            const deadlineDate = new Date(task.deadline); // Input date for each task
+            const deadlineDate = new Date(task.deadline);
 
             const formattedDate = deadlineDate.toLocaleDateString("en-US", {
               month: "short",
               day: "2-digit",
             });
             return (
-              <div key={index} className="row-content ">
-                <div className="flex_space prior-time">
+              <div key={index} className="row-content">
+                <div className="flex_space">
                   <span
                     className={`priority ${getPriorityClass(
                       task.priority
@@ -39,9 +52,53 @@ const Rowcontent = ({ tasks }) => {
                   >
                     {task.priority}
                   </span>
-                  <span className="flex " style={{ cursor: "pointer" }}>
-                    <PiDotsThreeOutlineFill />
-                  </span>
+                  <nav className="dropdown-menu">
+                    <button
+                      className="dropdown-toggle"
+                      onClick={() =>
+                        setDropdownVisible(
+                          dropdownVisible === index ? null : index
+                        )
+                      }
+                    >
+                      <PiDotsThreeOutlineFill />
+                    </button>
+                    {dropdownVisible === index && (
+                      <ul className="dropdown-list">
+                        <li>
+                          <span className="flex_start">
+                            <IoIosMove /> Move
+                            <ul className="nested-dropdown">
+                              <li onClick={() => handleMove(index, "backlog")}>
+                                Backlog
+                              </li>
+                              <li onClick={() => handleMove(index, "todo")}>
+                                Todo
+                              </li>
+                              <li onClick={() => handleMove(index, "on-going")}>
+                                On-going
+                              </li>
+                              <li onClick={() => handleMove(index, "done")}>
+                                Done
+                              </li>
+                            </ul>
+                          </span>
+                        </li>
+                        <li>
+                          <span className="flex_start">
+                            <LiaEdit />
+                            Edit
+                          </span>
+                        </li>
+                        <li>
+                          <span className="flex_start">
+                            <MdOutlineDelete />
+                            Delete
+                          </span>
+                        </li>
+                      </ul>
+                    )}
+                  </nav>
                 </div>
                 <span className="task">{task.task}</span>
                 <div className="tag-time flex_space">
