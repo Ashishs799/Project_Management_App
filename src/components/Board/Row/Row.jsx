@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Row.css";
 import Rowcontent from "./Rowcontent";
+import { TaskContext } from "../../../context/TaskContext";
 
 export const Row = () => {
-  const [tasks, setTasks] = useState([]);
-
-  // Load tasks from localStorage
-  useEffect(() => {
-    const taskStrings = localStorage.getItem("tasks");
-    const parsedTasks = taskStrings ? JSON.parse(taskStrings) : [];
-    setTasks(parsedTasks);
-  }, []);
-
-  const handleMoveTask = (taskIndex, newStatus) => {
-    const updatedTasks = tasks.map((task, index) =>
-      index === taskIndex ? { ...task, status: newStatus } : task
-    );
-    setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-  };
+  const { tasks, handleMoveTask } = useContext(TaskContext);
 
   const backlogTasks = tasks.filter((task) => task.status === "backlog");
   const todoTasks = tasks.filter((task) => task.status === "todo");

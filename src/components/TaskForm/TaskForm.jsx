@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./TaskForm.css";
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from "../../Common/Button";
 import { TaskContext } from "../../context/TaskContext";
 
 const TaskForm = () => {
-  const { hideFormHandler, showForm, formRef } = useContext(TaskContext);
+  const { hideFormHandler, showForm, formRef, addTask } = useContext(TaskContext);
   const [tasks, setTasks] = useState([]);
   const [taskDetails, setTaskDetails] = useState({
     task: "",
@@ -14,12 +15,6 @@ const TaskForm = () => {
     tags: "",
   });
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTaskDetails((prevDetails) => ({
@@ -31,11 +26,7 @@ const TaskForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Task details before adding to tasks:", taskDetails);
-    setTasks((prevTasks) => {
-      const updatedTasks = [...prevTasks, taskDetails];
-      // console.log("Updated tasks array:", updatedTasks);
-      return updatedTasks;
-    });
+    addTask(taskDetails)
 
     setTaskDetails({
       task: "",

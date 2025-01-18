@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Rowcontent.css";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { SlCalender } from "react-icons/sl";
 import { IoIosMove } from "react-icons/io";
 import { LiaEdit } from "react-icons/lia";
 import { MdOutlineDelete } from "react-icons/md";
+import { TaskContext } from "../../../context/TaskContext";
 
 const Rowcontent = ({ tasks, onMove, parentTasks }) => {
   const [dropdownVisible, setDropdownVisible] = useState(null);
-
+  const { removeTask } = useContext(TaskContext);
   const handleMove = (taskIndex, newStatus) => {
     const globalIndex = parentTasks.findIndex(
       (task) => task.task === tasks[taskIndex].task
@@ -91,7 +92,10 @@ const Rowcontent = ({ tasks, onMove, parentTasks }) => {
                           </span>
                         </li>
                         <li>
-                          <span className="flex_start">
+                          <span
+                            className="flex_start"
+                            onClick={() => removeTask(task.id)}
+                          >
                             <MdOutlineDelete />
                             Delete
                           </span>
