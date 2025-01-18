@@ -7,10 +7,9 @@
   font-family: "Montserrat", sans-serif;
 }
 body {
-  min-width: 100%;
+  min-width: 100vw;
   min-height: 100vh;
   position: relative;
-
   background: #2ecc7004;
 }
 
@@ -47,4 +46,23 @@ body {
 
 .m-0-60 {
   margin: 0 60px;
+}
+
+._green {
+  color: #2ecc71;
+}
+
+._yellow {
+  color: #ffc107;
+}
+._orange {
+  color: #fd7e14;
+}
+
+._purple {
+  color: #822482;
+}
+
+._blue {
+  color: #2e3fbf;
 }

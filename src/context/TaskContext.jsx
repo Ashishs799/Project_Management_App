@@ -50,13 +50,10 @@ export const TaskContextProvider = ({ children }) => {
       setTimeout(() => {
         showProjectNameFormHandler(); // Show the form
       }, 2000);
-
-      // Set a flag in localStorage to indicate the form has been shown
       localStorage.setItem("isFormShown", true);
     }
   }, [name]);
 
-  // Load tasks from localStorage
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     const taskStrings = localStorage.getItem("tasks");

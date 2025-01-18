@@ -5,6 +5,6 @@
   background: teal; */
 }
 
-/* .columns span{
-  font-weight: 500;
-} */
+.columns span {
+  column-gap: 10px;
+}

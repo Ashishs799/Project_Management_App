@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./TaskForm.css";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "../../Common/Button";
 import { TaskContext } from "../../context/TaskContext";
 
 const TaskForm = () => {
-  const { hideFormHandler, showForm, formRef, addTask } = useContext(TaskContext);
+  const { hideFormHandler, showForm, formRef, addTask } =
+    useContext(TaskContext);
   const [tasks, setTasks] = useState([]);
   const [taskDetails, setTaskDetails] = useState({
     task: "",
@@ -26,7 +27,7 @@ const TaskForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Task details before adding to tasks:", taskDetails);
-    addTask(taskDetails)
+    addTask(taskDetails);
 
     setTaskDetails({
       task: "",
@@ -71,6 +72,7 @@ const TaskForm = () => {
             name="priority"
             onChange={handleInputChange}
             value={taskDetails.priority}
+            required
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -109,6 +111,7 @@ const TaskForm = () => {
             value={taskDetails.tags}
             placeholder="e.g., Bug, Feature"
             onChange={handleInputChange}
+            required
           />
 
           <Button label={"Create task"} type={"submit"} />
